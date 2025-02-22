@@ -1,4 +1,6 @@
 import TopFourCards from "@/components/TopFourCards";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+
 function Dashboard() {
   return (
     <div
@@ -25,9 +27,26 @@ function Dashboard() {
         <source src="/Kimi No Nawa breaking.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+
+      {/* Centered Content */}
+      <div className="flex justify-center relative my-20 z-10">
+        <div className="max-w-screen-lg px-4 md:px-8 flex flex-col items-center">
+
+          {/* Animated Text */}
+          <TextGenerateEffect
+            className="uppercase tracking-wide text-4xl text-center text-pink-300 whitespace-normal"
+            words="Dive into the Vast, Amazing World of Anime"
+          />
+
+          <TextGenerateEffect
+            className="text-center text-blue-300 text-3xl md:text-5xl lg:text-6xl whitespace-normal"
+            words="Rediscover your Memories and Add New ones"
+          />
+
+        </div>
+      </div>
+
       <TopFourCards />
-      
-      {/* Your Dashboard Content */}
     </div>
   );
 }
