@@ -1,6 +1,6 @@
 import TopFourCards from "@/components/TopFourCards";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-
+import VideoComponent from "@/components/VideoComponent";
 function Dashboard() {
   return (
     <div
@@ -47,6 +47,7 @@ function Dashboard() {
       </div>
 
       <TopFourCards />
+      <VideoComponent />
     </div>
   );
 }
