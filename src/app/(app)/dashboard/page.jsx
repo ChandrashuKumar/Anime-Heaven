@@ -1,6 +1,7 @@
 import TopFourCards from "@/components/TopFourCards";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import VideoComponent from "@/components/VideoComponent";
+import WaifuCarousel from "@/components/WaifuCarousel";
 function Dashboard() {
   return (
     <div
@@ -47,7 +48,31 @@ function Dashboard() {
       </div>
 
       <TopFourCards />
+
+      <div className="flex justify-center relative mt-20 z-10">
+        <div className="max-w-screen-lg px-4 md:px-8 flex flex-col items-center">
+
+          <TextGenerateEffect
+            className="text-center text-violet-300 text-3xl md:text-5xl lg:text-6xl whitespace-normal"
+            words="Feel the raw emotions"
+          />
+
+        </div>
+      </div>
+
       <VideoComponent />
+
+      <div className="flex justify-center relative my-10 z-10">
+        <div className="max-w-screen-lg px-4 md:px-8 flex flex-col items-center">
+
+          <TextGenerateEffect
+            className="text-center text-teal-400 text-3xl md:text-5xl lg:text-6xl whitespace-normal"
+            words="And remember your waifus ❤️"
+          />
+
+        </div>
+      </div>
+      <WaifuCarousel/>
     </div>
   );
 }
