@@ -92,14 +92,13 @@ function WaifuCarousel() {
         data-mouse-down-at="0"
         data-prev-percentage="0"
       >
-        <img className="image" src="/waifu1.png" draggable="false" alt="Image 1" />
-        <img className="image" src="/waifu2.png" draggable="false" alt="Image 2" />
+        <img className="image" src="/waifu13.png" draggable="false" alt="Image 2" />
+        <img className="image" src="/waifu11.jpg" draggable="false" alt="Image 1" />
         <img className="image" src="/waifu8.webp" draggable="false" alt="Image 0" />
-        <img className="image" src="/waifu3.png" draggable="false" alt="Image 3" />
+        <img className="image" src="/waifu9.jpg" draggable="false" alt="Image 3" />
         <img className="image" src="/waifu7.jpg" draggable="false" alt="Image 7" />
-        <img className="image" src="/waifu6.jpg" draggable="false" alt="Image 6" />
-        <img className="image" src="/waifu4.jpg" draggable="false" alt="Image 4" />
-        <img className="image" src="/waifu5.jpg" draggable="false" alt="Image 5" />
+        <img className="image" src="/waifu12.jpg" draggable="false" alt="Image 6" />
+        <img className="image" src="/waifu10.jpg" draggable="false" alt="Image 5" />
       </div>
     </div>
   );
