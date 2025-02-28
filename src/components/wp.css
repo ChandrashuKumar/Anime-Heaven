@@ -1,0 +1,28 @@
+#result {
+    height: 60vh;           /* adjust height as needed */
+    width: 100vw;            /* adjust width as needed */
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Image track (the slider) */
+  #image-track {
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left: 15%;
+    top: 50%;
+    transform: translate(0%, -50%);
+    user-select: none;
+    /*Preventimagehighlighting*/
+  }
+  
+  /* Images within the track */
+  #image-track > .image {
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position:100% center;
+  }
+  

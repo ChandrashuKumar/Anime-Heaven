@@ -1,86 +1,105 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import "flickity/css/flickity.css"
-import "./flickity.css"
+import "./wp.css";
 
 function WaifuCarousel() {
-  // Create a ref to attach to the carousel container.
-  const carouselRef = useRef(null);
+  const trackRef = useRef(null);
 
   useEffect(() => {
-    // Ensure we're running in the browser.
-    if (typeof window !== "undefined" && carouselRef.current) {
-      // Dynamically require Flickity to avoid SSR issues.
-      const Flickity = require("flickity");
+    const track = trackRef.current;
+    if (!track) return;
 
-      // Initialize Flickity on the carousel element.
-      const flkty = new Flickity(carouselRef.current, {
-        imagesLoaded: true,
-        percentPosition: false,
-      });
+    // Initialize dataset attributes
+    track.dataset.mouseDownAt = "0";
+    track.dataset.prevPercentage = "0";
+    track.dataset.percentage = "0";
 
-      // Select all images within carousel cells.
-      const imgs = carouselRef.current.querySelectorAll(".carousel-cell img");
+    // Handlers
+    const handleOnDown = (e) => {
+      track.dataset.mouseDownAt = e.clientX;
+    };
 
-      // Determine the proper transform property.
-      const docStyle = document.documentElement.style;
-      const transformProp =
-        typeof docStyle.transform === "string" ? "transform" : "WebkitTransform";
+    const handleOnUp = () => {
+      track.dataset.mouseDownAt = "0";
+      track.dataset.prevPercentage = track.dataset.percentage;
+    };
 
-      // Listen for the Flickity scroll event to adjust image positions.
-      flkty.on("scroll", function () {
-        flkty.slides.forEach(function (slide, i) {
-          const img = imgs[i];
-          const x = (slide.target + flkty.x) * -1 / 3;
-          img.style[transformProp] = "translateX(" + x + "px)";
-        });
-      });
-    }
+    const handleOnMove = (e) => {
+      if (track.dataset.mouseDownAt === "0") return;
+
+      const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX;
+      const maxDelta = window.innerWidth / 2;
+      const percentage = (mouseDelta / maxDelta) * -100;
+      const nextPercentageUnconstrained =
+        parseFloat(track.dataset.prevPercentage) + percentage;
+      const nextPercentage = Math.max(
+        Math.min(nextPercentageUnconstrained, 0),
+        -100
+      );
+      track.dataset.percentage = nextPercentage;
+
+      // Animate the track
+      track.animate(
+        { transform: `translate(${nextPercentage}%, -50%)` },
+        { duration: 1200, fill: "forwards" }
+      );
+
+      // Animate each image's object position
+      for (const image of track.getElementsByClassName("image")) {
+        image.animate(
+          { objectPosition: `${100 + nextPercentage}% center` },
+          { duration: 1200, fill: "forwards" }
+        );
+      }
+    };
+
+    // Event listeners for mouse/touch events
+    window.addEventListener("mousedown", handleOnDown);
+    window.addEventListener("touchstart", (e) =>
+      handleOnDown(e.touches[0])
+    );
+    window.addEventListener("mouseup", handleOnUp);
+    window.addEventListener("touchend", (e) =>
+      handleOnUp(e.touches[0])
+    );
+    window.addEventListener("mousemove", handleOnMove);
+    window.addEventListener("touchmove", (e) =>
+      handleOnMove(e.touches[0])
+    );
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener("mousedown", handleOnDown);
+      window.removeEventListener("touchstart", (e) =>
+        handleOnDown(e.touches[0])
+      );
+      window.removeEventListener("mouseup", handleOnUp);
+      window.removeEventListener("touchend", (e) =>
+        handleOnUp(e.touches[0])
+      );
+      window.removeEventListener("mousemove", handleOnMove);
+      window.removeEventListener("touchmove", (e) =>
+        handleOnMove(e.touches[0])
+      );
+    };
   }, []);
 
   return (
-    <div className="carousel mb-24 mx-12" ref={carouselRef}>
-      <div className="carousel-cell" key="1">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg"
-          alt="orange tree"
-        />
-      </div>
-      <div className="carousel-cell" key="2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg"
-          alt="One World Trade"
-        />
-      </div>
-      <div className="carousel-cell" key="3">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg"
-          alt="drizzle"
-        />
-      </div>
-      <div className="carousel-cell" key="4">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg"
-          alt="cat nose"
-        />
-      </div>
-      <div className="carousel-cell" key="5">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg"
-          alt="contrail"
-        />
-      </div>
-      <div className="carousel-cell" key="6">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg"
-          alt="golden hour"
-        />
-      </div>
-      <div className="carousel-cell" key="7">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg"
-          alt="flight formation"
-        />
+    <div id="result" className="my-24">
+      <div
+        id="image-track"
+        ref={trackRef}
+        data-mouse-down-at="0"
+        data-prev-percentage="0"
+      >
+        <img className="image" src="/waifu1.png" draggable="false" alt="Image 1" />
+        <img className="image" src="/waifu2.png" draggable="false" alt="Image 2" />
+        <img className="image" src="/waifu8.webp" draggable="false" alt="Image 0" />
+        <img className="image" src="/waifu3.png" draggable="false" alt="Image 3" />
+        <img className="image" src="/waifu7.jpg" draggable="false" alt="Image 7" />
+        <img className="image" src="/waifu6.jpg" draggable="false" alt="Image 6" />
+        <img className="image" src="/waifu4.jpg" draggable="false" alt="Image 4" />
+        <img className="image" src="/waifu5.jpg" draggable="false" alt="Image 5" />
       </div>
     </div>
   );
