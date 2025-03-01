@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import TopFourCards from "@/components/TopFourCards";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import VideoComponent from "@/components/VideoComponent";
@@ -73,6 +74,7 @@ function Dashboard() {
         </div>
       </div>
       <WaifuCarousel/>
+      <Footer/>
     </div>
   );
 }

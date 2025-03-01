@@ -20,7 +20,7 @@
   
   /* Images within the track */
   #image-track > .image {
-    width: 40vmin;
+    width: 45vmin;
     height: 56vmin;
     object-fit: cover;
     object-position:100% center;
