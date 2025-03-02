@@ -85,7 +85,7 @@ function WaifuCarousel() {
   }, []);
 
   return (
-    <div id="result" className="my-24">
+    <div id="result" className="mt-24 mb-[32rem]">
       <div
         id="image-track"
         ref={trackRef}

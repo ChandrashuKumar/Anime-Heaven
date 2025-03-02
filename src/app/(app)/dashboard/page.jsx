@@ -1,8 +1,12 @@
+import { Pacifico } from "next/font/google";
 import Footer from "@/components/Footer";
 import TopFourCards from "@/components/TopFourCards";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import VideoComponent from "@/components/VideoComponent";
 import WaifuCarousel from "@/components/WaifuCarousel";
+
+const pacifico = Pacifico({ subsets: ["latin"], weight: "400" });
+
 function Dashboard() {
   return (
     <div
@@ -67,7 +71,7 @@ function Dashboard() {
         <div className="max-w-screen-lg px-4 md:px-8 flex flex-col items-center">
 
           <TextGenerateEffect
-            className="text-center text-teal-400 text-3xl md:text-5xl lg:text-6xl whitespace-normal"
+            className={`${pacifico.className} font-extralight text-center text-teal-400 text-3xl md:text-5xl lg:text-6xl whitespace-normal`}
             words="And remember your waifus ❤️"
           />
 
