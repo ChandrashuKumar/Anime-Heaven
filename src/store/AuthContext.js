@@ -15,7 +15,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // Global user state – updated via onAuthStateChanged
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -32,7 +31,6 @@ export const AuthProvider = ({ children }) => {
       } else {
         sessionStorage.removeItem("user");
       }
-      setLoading(false)
     });
     return () => unsubscribe();
   }, [pathname, router]);
@@ -101,14 +99,6 @@ export const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <p className="text-white">Loading...</p>
-      </div>
-    );
-  }
 
   // Provide functions and the current user via context
   return (
