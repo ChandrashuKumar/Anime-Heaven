@@ -1,14 +1,29 @@
-"use client";
-
-import React, { useState } from "react";
+"use client"; 
+import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/config";
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import Link from "next/link";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
     // Insert your API call logic to MyAnimeList here.
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      sessionStorage.removeItem("user");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
 
   return (
@@ -35,7 +50,7 @@ const Navbar = () => {
             width: "50px",
             height: "50px",
             marginRight: "15px",
-            borderRadius: "50%", // Makes the logo round
+            borderRadius: "50%",
             objectFit: "cover",
           }}
         />
@@ -97,28 +112,49 @@ const Navbar = () => {
             Search
           </button>
         </form>
-        <button
-          style={{
-            padding: "8px 12px",
-            backgroundColor: "transparent",
-            color: "#fff",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
-          Sign Up
-        </button>
-        <button
-          style={{
-            padding: "8px 12px",
-            backgroundColor: "transparent",
-            color: "#fff",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
-          Login
-        </button>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "8px 12px",
+              backgroundColor: "transparent",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href="/sign-up">
+              <button
+                style={{
+                  padding: "8px 12px",
+                  backgroundColor: "transparent",
+                  color: "#fff",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Sign Up
+              </button>
+            </Link>
+            <Link href="/sign-in">
+              <button
+                style={{
+                  padding: "8px 12px",
+                  backgroundColor: "transparent",
+                  color: "#fff",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Login
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
