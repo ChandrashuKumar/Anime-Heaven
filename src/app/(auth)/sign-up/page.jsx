@@ -59,7 +59,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/signup_backg.jpg')" }}>
       {/* Outer wrapper relative to both form and chibi */}
       <div className="relative">
         {/* Form container */}
