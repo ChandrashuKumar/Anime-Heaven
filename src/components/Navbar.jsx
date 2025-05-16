@@ -8,15 +8,8 @@ import Link from "next/link";
 import SearchBar from "./SearchBar";
 
 const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [user] = useAuthState(auth);
   const router = useRouter();
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchQuery);
-    // Insert your API call logic to MyAnimeList here.
-  };
 
   const handleLogout = async () => {
     try {
@@ -28,136 +21,59 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      style={{
-        backgroundColor: "pink", // Pink background
-        width: "90%",
-        padding: "15px 30px",
-        margin: "20px 20px 35px 70px",
-        borderRadius: "30px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        boxSizing: "border-box",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-      }}
-    >
+    <nav className="bg-[#0a0a0a] w-full px-4 py-3 flex items-center justify-between border-b border-zinc-800">
       {/* Left Section: Logo & Website Name */}
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div className="flex items-center">
         <img
           src="/logo.jpg"
           alt="Heaven Logo"
-          style={{
-            width: "50px",
-            height: "50px",
-            marginRight: "15px",
-            borderRadius: "50%",
-            objectFit: "cover",
-          }}
+          className="w-8 h-8 mr-3 rounded-full object-cover"
         />
-        <h1
-          style={{
-            margin: 0,
-            fontSize: "28px",
-            color: "#fff",
-            fontFamily: "Arial, sans-serif",
-          }}
-        >
-          Heaven
+        <h1 className="text-xl font-bold text-white">
+          Heaven<span className="text-purple-500">.</span>
         </h1>
       </div>
 
-      {/* Right Section: Search Bar & Buttons */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
-        }}
-      >
-        {/* <form
-          onSubmit={handleSearchSubmit}
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search anime..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              padding: "8px 12px",
-              borderRadius: "5px",
-              border: "1px solid rgba(255,255,255,0.8)",
-              outline: "none",
-              fontSize: "16px",
-              backgroundColor: "transparent",
-              color: "#fff",
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              marginLeft: "10px",
-              padding: "8px 12px",
-              borderRadius: "5px",
-              border: "none",
-              cursor: "pointer",
-              backgroundColor: "transparent",
-              color: "#fff",
-              fontSize: "16px",
-            }}
-          >
-            Search
-          </button>
-        </form> */}
-
+      {/* Middle Section: Search Bar */}
+      <div className="flex-1 max-w-md mx-4">
         <SearchBar />
+      </div>
 
+      {/* Right Section: User Actions */}
+      <div className="flex items-center">
         {user ? (
           <button
             onClick={handleLogout}
-            style={{
-              padding: "8px 12px",
-              backgroundColor: "transparent",
-              color: "#fff",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
+            className="text-gray-400 hover:text-white flex items-center"
           >
-            Logout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
           </button>
         ) : (
-          <>
+          <div className="flex items-center gap-2">
             <Link href="/sign-up">
-              <button
-                style={{
-                  padding: "8px 12px",
-                  backgroundColor: "transparent",
-                  color: "#fff",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                }}
-              >
+              <button className="px-3 py-1 bg-[#1a1a1a] hover:bg-[#222] text-white text-sm rounded-md">
                 Sign Up
               </button>
             </Link>
             <Link href="/sign-in">
-              <button
-                style={{
-                  padding: "8px 12px",
-                  backgroundColor: "transparent",
-                  color: "#fff",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                }}
-              >
+              <button className="px-3 py-1 bg-[#1a1a1a] hover:bg-[#222] text-white text-sm rounded-md">
                 Login
               </button>
             </Link>
-          </>
+          </div>
         )}
       </div>
     </nav>
