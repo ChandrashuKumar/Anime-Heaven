@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Video from "next-video";
-import awesomeVideo from "/videos/Demon Slayer - Entertainment District Arc Intro - No Credits   4K 60FPS.mp4";
+import awesomeVideo from "/videos/demon slayer ea.mp4";
 
 function VideoComponent() {
   const videoRef = useRef(null);

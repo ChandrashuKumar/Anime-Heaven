@@ -5,6 +5,7 @@ import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -74,7 +75,7 @@ const Navbar = () => {
           gap: "20px",
         }}
       >
-        <form
+        {/* <form
           onSubmit={handleSearchSubmit}
           style={{
             display: "flex",
@@ -111,7 +112,10 @@ const Navbar = () => {
           >
             Search
           </button>
-        </form>
+        </form> */}
+
+        <SearchBar />
+
         {user ? (
           <button
             onClick={handleLogout}
