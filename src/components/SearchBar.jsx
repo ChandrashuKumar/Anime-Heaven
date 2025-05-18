@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 // AniList GraphQL query
 const SEARCH_ANIME = gql`
@@ -91,6 +92,7 @@ const customStyles = `
 `;
 
 export default function SearchBar() {
+  const router = useRouter(); // Initialize useRouter
   const [input, setInput] = useState("");
   const [debounced, setDebounced] = useState(input);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -172,13 +174,13 @@ export default function SearchBar() {
     }
   };
 
-  // Handle anime selection
-  const handleSelectAnime = (anime) => {
+ // Handle anime selection
+ const handleSelectAnime = (anime) => {
     console.log("Selected anime:", anime.title.romaji);
     setIsDropdownOpen(false);
-    // Here you would typically navigate to the anime page
+    // Use router.push for client-side navigation
+    router.push(`/anime_detail/${anime.id}`);
   };
-
   // Clear search
   const clearSearch = () => {
     setInput("");

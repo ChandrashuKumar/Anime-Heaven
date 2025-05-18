@@ -9,8 +9,8 @@ export default function RootLayout({ children }) {
     <>
       <ApolloProvider client={client}>
         <Navbar/>
-      </ApolloProvider>
         {children}
+      </ApolloProvider>  
         
     </>
   );
