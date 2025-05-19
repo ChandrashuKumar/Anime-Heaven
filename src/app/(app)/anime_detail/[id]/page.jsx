@@ -2,9 +2,10 @@
 import { gql, useQuery } from "@apollo/client"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
+import { useEffect } from "react"
 import AnimeCard from "@/components/AnimeCard"
 import CharacterCard from "@/components/CharacterCard"
-import { useEffect } from "react"
+import AnimeListButton from "@/components/AnimeListButton"
 
 // Updated GraphQL query to request larger images
 const GET_ANIME_DETAILS = gql`
@@ -169,6 +170,9 @@ export default function AnimeDetailsPage() {
                 className="w-full h-full object-cover"
               />
             </div>
+
+            {/* Add to Anime List Button - Now handles all the logic internally */}
+            <AnimeListButton anime={anime} />
           </div>
 
           {/* Anime Info */}
@@ -346,7 +350,7 @@ export default function AnimeDetailsPage() {
                 }
 
                 return (
-                  <Link href={`/anime_detail/${rec.mediaRecommendation.id}`} key={rec.mediaRecommendation.id}>
+                  <Link href={`/anime/${rec.mediaRecommendation.id}`} key={rec.mediaRecommendation.id}>
                     <AnimeCard anime={recommendedAnime} />
                   </Link>
                 )
