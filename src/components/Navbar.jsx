@@ -41,11 +41,18 @@ const Navbar = () => {
       {/* Right Section: User Actions */}
       <div className="flex items-center">
         {user ? (
-          <button 
+          <div className="flex items-center gap-2">
+            <button 
             onClick={handleLogout} 
             className="px-3 py-1 bg-[#1a1a1a] hover:bg-[#222] text-white text-sm rounded-md">
             Sign Out
           </button>
+          <Link href="/my-animes">
+              <button className="px-3 py-1 bg-[#1a1a1a] hover:bg-[#222] text-white text-sm rounded-md">
+                My Animes
+              </button>
+            </Link>
+          </div>
         ) : (
           <div className="flex items-center gap-2">
             <Link href="/sign-up">
