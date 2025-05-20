@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -7,8 +7,9 @@ import { useAuth } from "@/store/AuthContext"; // Import our Auth context hook
 
 const SignIn = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { signInWithEmail, googleSignIn, signInError: firebaseError } = useAuth(); // Get signIn functions from the store
-
+  const returnUrl = searchParams.get("returnUrl");
 
   // Define validation schema using Yup
   const validationSchema = Yup.object().shape({
@@ -48,7 +49,8 @@ const SignIn = () => {
     try {
       const res = await signInWithEmail(data.email, data.password);
       console.log("User signed in:", res.user);
-      router.push("/dashboard");
+      if(returnUrl) router.push(returnUrl);
+      else router.push("/dashboard");
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +60,10 @@ const SignIn = () => {
     try {
       const res = await googleSignIn()
       console.log(res);
-      if (res) router.push("/dashboard");
+      if (res){
+        if(returnUrl) router.push(returnUrl);
+        else router.push("/dashboard");
+      }
 
     } catch (error) {
       console.log(error);

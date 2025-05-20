@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
+import { usePathname } from 'next/navigation'
 import { PlusCircle, CheckCircle, Loader2, X } from "lucide-react"
 import { useAuth } from "@/store/AuthContext"
 import Link from "next/link"
@@ -12,6 +13,7 @@ export default function AnimeListButton({ anime }) {
   const [isRemoving, setIsRemoving] = useState(false)
   const [isInList, setIsInList] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
+   const pathname = usePathname()
 
   // Check if anime is in user's list when component mounts or user/anime changes
   useEffect(() => {
@@ -131,7 +133,7 @@ export default function AnimeListButton({ anime }) {
       <div className="mt-4 p-4 bg-gray-800/50 border border-gray-700 rounded-lg">
         <p className="text-gray-300 text-sm mb-2">Want to create your own anime list?</p>
         <Link
-          href="/sign-in"
+          href={`/sign-in?returnUrl=${encodeURIComponent(pathname)}`}
           className="inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white text-sm font-medium transition-colors"
         >
           Log in now

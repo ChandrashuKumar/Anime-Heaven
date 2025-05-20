@@ -7,6 +7,7 @@ import AnimeCard from "@/components/AnimeCard"
 import CharacterCard from "@/components/CharacterCard"
 import AnimeListButton from "@/components/AnimeListButton"
 
+
 // Updated GraphQL query to request larger images
 const GET_ANIME_DETAILS = gql`
   query ($id: Int) {
