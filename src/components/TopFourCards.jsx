@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Typography, Grid, Box } from "@mui/material";
+import { Card, CardContent, Typography, Grid, Box, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import { keyframes } from "@emotion/react";
 
@@ -20,7 +20,7 @@ const FadeInImage = ({ src, alt, ...rest }) => {
       }}
     >
       <Image
-        src={src}
+        src={src || "/placeholder.svg"}
         alt={alt}
         fill
         onLoad={() => setLoaded(true)}
@@ -55,6 +55,9 @@ const lineAnimation = keyframes`
 `;
 
 const TopFourCards = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [animeData, setAnimeData] = useState([]);
 
   // Calculate current year and season
@@ -90,10 +93,17 @@ const TopFourCards = () => {
   }, []);
 
   return (
-    <Box sx={{padding: 15}}>
+    <Box sx={{ 
+      padding: {
+        xs: 2,  // 16px on mobile
+        sm: 4,  // 32px on tablet
+        md: 8,  // 64px on desktop
+        lg: 15  // Original 120px on large screens
+      }
+    }}>
       {/* Title */}
       <Typography
-        variant="h3"
+        variant={isMobile ? "h4" : "h3"}
         component="h1"
         sx={{
           animation: `${fadeIn} 2s ease-in-out forwards`,
@@ -103,28 +113,47 @@ const TopFourCards = () => {
           color: "transparent",
           textAlign: "center",
           mb: 1,
+          fontSize: {
+            xs: '1.75rem',
+            sm: '2.5rem',
+            md: '3rem'
+          }
         }}
       >
         Seasonal Anime - {season} {year}
       </Typography>
       {/* Animated red line under title */}
-      <Box sx={{ width: "700px", height: "4px", overflow: "hidden", mb: 25, mx: "auto" }}>
-          <Box
-            sx={{
-              height: "100%",
-              backgroundColor: "#f44336", // a nice red shade; adjust as needed
-              width: 0,
-              animation: `${lineAnimation} 2s ease forwards`,
-            }}
-          />
-        </Box>
+      <Box sx={{ 
+        width: {
+          xs: '90%',
+          sm: '80%',
+          md: '700px'
+        }, 
+        height: "4px", 
+        overflow: "hidden", 
+        mb: {
+          xs: 8,
+          sm: 15,
+          md: 25
+        }, 
+        mx: "auto" 
+      }}>
+        <Box
+          sx={{
+            height: "100%",
+            backgroundColor: "#f44336", // a nice red shade; adjust as needed
+            width: 0,
+            animation: `${lineAnimation} 2s ease forwards`,
+          }}
+        />
+      </Box>
 
       {/* Anime Cards */}
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
         {animeData.map((item) => {
           const { node } = item;
           return (
-            <Grid item xs={12} sm={6} md={3} key={node.id}>
+            <Grid item xs={6} sm={6} md={3} key={node.id}>
               <Card
                 sx={{
                   position: "relative",
@@ -135,7 +164,15 @@ const TopFourCards = () => {
                   "&:hover": { transform: "scale(1.05)" },
                 }}
               >
-                <Box sx={{ position: "relative", width: "100%", height: 300 }}>
+                <Box sx={{ 
+                  position: "relative", 
+                  width: "100%", 
+                  height: {
+                    xs: 180,
+                    sm: 220,
+                    md: 300
+                  }
+                }}>
                   <FadeInImage
                     src={
                       node.main_picture?.large ||
@@ -160,7 +197,19 @@ const TopFourCards = () => {
                   >
                     <Typography
                       variant="body2"
-                      sx={{ color: "#fff", fontSize: "1rem" }}
+                      sx={{ 
+                        color: "#fff", 
+                        fontSize: {
+                          xs: '0.75rem',
+                          sm: '0.875rem',
+                          md: '1rem'
+                        },
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
+                      }}
                     >
                       {node.title}
                     </Typography>

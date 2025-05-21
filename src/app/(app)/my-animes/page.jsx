@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { useAnime } from "@/store/AnimeContext"
 import { useAuth } from "@/store/AuthContext"
 import Link from "next/link"
-import { Loader2, Search, ChevronLeft, ChevronRight, Calendar, Clock, Info } from "lucide-react"
+import { Loader2, Search, ChevronLeft, ChevronRight, Calendar, Clock, Info, ChevronDown, ChevronUp } from "lucide-react"
 
 export default function MyAnimeListPage() {
   const { user } = useAuth()
@@ -13,6 +13,7 @@ export default function MyAnimeListPage() {
   const [activeFilter, setActiveFilter] = useState("all")
   const [isRemoving, setIsRemoving] = useState({})
   const [backgroundImage, setBackgroundImage] = useState("/cherry-blossoms.jpg") // Default background
+  const [expandedCards, setExpandedCards] = useState({})
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1)
@@ -88,6 +89,13 @@ export default function MyAnimeListPage() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const toggleCardExpansion = (animeId) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [animeId]: !prev[animeId],
+    }))
+  }
+
   // Format date helper
   const formatDate = (dateObj) => {
     if (!dateObj || !dateObj.year) return "N/A"
@@ -143,18 +151,20 @@ export default function MyAnimeListPage() {
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Hero section */}
-        <div className="h-48 md:h-64 flex items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg tracking-wider">MyAnimeList</h1>
+        <div className="h-32 sm:h-40 md:h-48 flex items-center justify-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg tracking-wider">
+            MyAnimeList
+          </h1>
         </div>
 
         {/* Content container - wider max width */}
-        <div className="w-full max-w-7xl mx-auto px-4 flex-1 flex flex-col">
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 flex-1 flex flex-col">
           {/* Filter tabs */}
           <div className="bg-gray-800 rounded-t-lg overflow-hidden">
             <div className="flex overflow-x-auto scrollbar-hide">
               <button
                 onClick={() => setActiveFilter("all")}
-                className={`px-5 py-3 text-base font-bold whitespace-nowrap ${
+                className={`px-3 sm:px-5 py-2 sm:py-3 text-sm sm:text-base font-bold whitespace-nowrap ${
                   activeFilter === "all"
                     ? "text-purple-400 border-b-2 border-purple-400 bg-gray-700"
                     : "text-gray-300 hover:text-white hover:bg-gray-700/30"
@@ -164,7 +174,7 @@ export default function MyAnimeListPage() {
               </button>
               <button
                 onClick={() => setActiveFilter("RELEASING")}
-                className={`px-5 py-3 text-base font-bold whitespace-nowrap ${
+                className={`px-3 sm:px-5 py-2 sm:py-3 text-sm sm:text-base font-bold whitespace-nowrap ${
                   activeFilter === "RELEASING"
                     ? "text-purple-400 border-b-2 border-purple-400 bg-gray-700"
                     : "text-gray-300 hover:text-white hover:bg-gray-700/30"
@@ -174,7 +184,7 @@ export default function MyAnimeListPage() {
               </button>
               <button
                 onClick={() => setActiveFilter("FINISHED")}
-                className={`px-5 py-3 text-base font-bold whitespace-nowrap ${
+                className={`px-3 sm:px-5 py-2 sm:py-3 text-sm sm:text-base font-bold whitespace-nowrap ${
                   activeFilter === "FINISHED"
                     ? "text-purple-400 border-b-2 border-purple-400 bg-gray-700"
                     : "text-gray-300 hover:text-white hover:bg-gray-700/30"
@@ -184,7 +194,7 @@ export default function MyAnimeListPage() {
               </button>
               <button
                 onClick={() => setActiveFilter("NOT_YET_RELEASED")}
-                className={`px-5 py-3 text-base font-bold whitespace-nowrap ${
+                className={`px-3 sm:px-5 py-2 sm:py-3 text-sm sm:text-base font-bold whitespace-nowrap ${
                   activeFilter === "NOT_YET_RELEASED"
                     ? "text-purple-400 border-b-2 border-purple-400 bg-gray-700"
                     : "text-gray-300 hover:text-white hover:bg-gray-700/30"
@@ -198,8 +208,8 @@ export default function MyAnimeListPage() {
           {/* Main content */}
           <div className="flex-1 flex flex-col backdrop-blur-sm">
             {/* Header with title and search */}
-            <div className="bg-gray-800/80 p-3 flex flex-col md:flex-row justify-between items-center border-t border-gray-700/50">
-              <h2 className="text-base font-semibold uppercase">
+            <div className="bg-gray-800/80 p-2 sm:p-3 flex flex-col md:flex-row justify-between items-center border-t border-gray-700/50">
+              <h2 className="text-sm sm:text-base font-semibold uppercase">
                 {activeFilter === "all"
                   ? "ALL ANIME"
                   : activeFilter === "RELEASING"
@@ -216,20 +226,20 @@ export default function MyAnimeListPage() {
                     placeholder="Search anime..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-gray-700 border border-gray-600 rounded-md py-1 pl-7 pr-3 text-sm w-full md:w-48 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
+                    className="bg-gray-700 border border-gray-600 rounded-md py-1 pl-7 pr-3 text-xs sm:text-sm w-full md:w-48 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
                   />
                   <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
                 </div>
 
                 <div className="ml-3 flex items-center">
-                  <label htmlFor="items-per-page" className="text-sm text-gray-300 mr-1">
+                  <label htmlFor="items-per-page" className="text-xs sm:text-sm text-gray-300 mr-1">
                     Show:
                   </label>
                   <select
                     id="items-per-page"
                     value={itemsPerPage}
                     onChange={(e) => setItemsPerPage(Number(e.target.value))}
-                    className="bg-gray-700 border border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+                    className="bg-gray-700 border border-gray-600 rounded-md py-1 px-2 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
                   >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
@@ -240,10 +250,10 @@ export default function MyAnimeListPage() {
             </div>
 
             {/* Anime List */}
-            <div className="bg-gray-900/80 rounded-b-lg overflow-hidden flex-1 p-3">
+            <div className="bg-gray-900/80 rounded-b-lg overflow-hidden flex-1 p-2 sm:p-3">
               {/* Empty state */}
               {filteredList.length === 0 && (
-                <div className="p-6 text-center">
+                <div className="p-4 sm:p-6 text-center">
                   {searchQuery || activeFilter !== "all" ? (
                     <>
                       <p className="text-gray-300 mb-3 text-sm">No anime found matching your filters.</p>
@@ -273,12 +283,114 @@ export default function MyAnimeListPage() {
 
               {/* Anime Cards */}
               <div className="space-y-2">
-                {displayedItems.map((anime, index) => (
+                {displayedItems.map((anime) => (
                   <div
                     key={anime.id}
                     className="bg-gray-800/70 border border-gray-700 rounded-lg overflow-hidden hover:border-purple-500 transition-all duration-300"
                   >
-                    <div className="flex flex-col md:flex-row">
+                    {/* Mobile View */}
+                    <div className="md:hidden">
+                      <div className="flex">
+                        {/* Left side - Image */}
+                        <div className="w-20 sm:w-24 p-1.5 flex-shrink-0 bg-gray-800/50">
+                          <div className="w-full aspect-[3/4] rounded overflow-hidden">
+                            <img
+                              src={anime.coverImage || "/placeholder.svg"}
+                              alt={anime.title.romaji}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Right side - Basic Details */}
+                        <div className="flex-1 p-2 flex flex-col justify-between">
+                          <div>
+                            <Link href={`/anime/${anime.id}`} className="hover:text-purple-400 transition-colors">
+                              <h3 className="text-sm font-semibold line-clamp-1">{anime.title.romaji}</h3>
+                            </Link>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              <span className="px-1.5 py-0.5 bg-gray-700/80 rounded text-xs">{anime.status}</span>
+                              <span className="px-1.5 py-0.5 bg-gray-700/80 rounded text-xs">
+                                {anime.episodes ? `${anime.episodes} eps` : "? eps"}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="flex justify-between items-center mt-1">
+                            <button
+                              onClick={() => toggleCardExpansion(anime.id)}
+                              className="text-xs text-purple-400 flex items-center"
+                            >
+                              {expandedCards[anime.id] ? (
+                                <>
+                                  <ChevronUp size={12} className="mr-0.5" /> Less
+                                </>
+                              ) : (
+                                <>
+                                  <ChevronDown size={12} className="mr-0.5" /> More
+                                </>
+                              )}
+                            </button>
+
+                            <div className="flex space-x-1">
+                              <button
+                                onClick={() => handleRemoveAnime(anime.id)}
+                                disabled={isRemoving[anime.id]}
+                                className="px-1.5 py-0.5 bg-red-900/50 hover:bg-red-700 rounded text-xs transition-colors"
+                              >
+                                {isRemoving[anime.id] ? <Loader2 className="h-3 w-3 animate-spin" /> : "Remove"}
+                              </button>
+                              <Link
+                                href={`/anime/${anime.id}`}
+                                className="px-1.5 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors"
+                              >
+                                Details
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Expanded details for mobile */}
+                      {expandedCards[anime.id] && (
+                        <div className="p-2 pt-0 border-t border-gray-700/50 mt-1">
+                          <div className="grid grid-cols-2 gap-x-2 text-xs">
+                            <div className="flex items-center">
+                              <Calendar className="h-3 w-3 text-gray-400 mr-1" />
+                              <span className="text-gray-400">Season:</span>
+                            </div>
+                            <div className="font-medium">
+                              {anime.season && anime.seasonYear ? `${anime.season} ${anime.seasonYear}` : "N/A"}
+                            </div>
+
+                            <div className="flex items-center mt-1">
+                              <Clock className="h-3 w-3 text-gray-400 mr-1" />
+                              <span className="text-gray-400">Duration:</span>
+                            </div>
+                            <div className="font-medium mt-1">{anime.duration ? `${anime.duration} min` : "N/A"}</div>
+
+                            <div className="flex items-center mt-1">
+                              <Info className="h-3 w-3 text-gray-400 mr-1" />
+                              <span className="text-gray-400">Studio:</span>
+                            </div>
+                            <div className="font-medium mt-1">{anime.studio || "N/A"}</div>
+                          </div>
+
+                          {anime.description && (
+                            <div className="mt-2">
+                              <p className="text-gray-400 text-xs mb-0.5">Synopsis</p>
+                              <div
+                                className="text-gray-300 line-clamp-2 text-xs"
+                                dangerouslySetInnerHTML={{ __html: anime.description }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Desktop View */}
+                    <div className="hidden md:flex md:flex-row">
                       {/* Left side - Image */}
                       <div className="md:w-40 p-2 flex flex-col bg-gray-800/50">
                         <div className="w-full aspect-[3/4] rounded overflow-hidden">
@@ -312,7 +424,7 @@ export default function MyAnimeListPage() {
                               {isRemoving[anime.id] ? <Loader2 className="h-3 w-3 animate-spin" /> : "Remove"}
                             </button>
                             <Link
-                              href={`/anime_detail/${anime.id}`}
+                              href={`/anime/${anime.id}`}
                               className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-sm transition-colors"
                             >
                               Details
@@ -352,13 +464,11 @@ export default function MyAnimeListPage() {
                           {/* Row 3 - Labels */}
                           <div className="text-gray-400 text-sm mt-2">Start Date</div>
                           <div className="text-gray-400 text-sm mt-2">End Date</div>
-                          <div className="text-gray-400 text-sm mt-2 opacity-0">Placeholder</div>{" "}
-                          {/* Hidden placeholder for alignment */}
+                          <div className="text-gray-400 text-sm mt-2 opacity-0">Placeholder</div>
                           {/* Row 3 - Values */}
                           <div className="font-medium text-sm">{formatDate(anime.startDate)}</div>
                           <div className="font-medium text-sm">{formatDate(anime.endDate)}</div>
-                          <div className="font-medium text-sm opacity-0">Placeholder</div>{" "}
-                          {/* Hidden placeholder for alignment */}
+                          <div className="font-medium text-sm opacity-0">Placeholder</div>
                         </div>
 
                         {/* Synopsis - Separate section as before */}
@@ -407,7 +517,7 @@ export default function MyAnimeListPage() {
                           <button
                             key={i}
                             onClick={() => handlePageChange(pageNum)}
-                            className={`w-8 h-8 rounded-md text-sm ${
+                            className={`w-6 sm:w-8 h-6 sm:h-8 rounded-md text-xs sm:text-sm ${
                               currentPage === pageNum
                                 ? "bg-purple-600 text-white"
                                 : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -420,10 +530,12 @@ export default function MyAnimeListPage() {
 
                       {totalPages > 5 && currentPage < totalPages - 2 && (
                         <>
-                          <span className="flex items-center justify-center w-8 h-8 text-gray-400 text-sm">...</span>
+                          <span className="flex items-center justify-center w-6 sm:w-8 h-6 sm:h-8 text-gray-400 text-xs sm:text-sm">
+                            ...
+                          </span>
                           <button
                             onClick={() => handlePageChange(totalPages)}
-                            className="w-8 h-8 rounded-md bg-gray-800 text-gray-300 hover:bg-gray-700 text-sm"
+                            className="w-6 sm:w-8 h-6 sm:h-8 rounded-md bg-gray-800 text-gray-300 hover:bg-gray-700 text-xs sm:text-sm"
                           >
                             {totalPages}
                           </button>
@@ -445,7 +557,7 @@ export default function MyAnimeListPage() {
           </div>
 
           {/* Footer space */}
-          <div className="h-6"></div>
+          <div className="h-4 sm:h-6"></div>
         </div>
       </div>
     </div>

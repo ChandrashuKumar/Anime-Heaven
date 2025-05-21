@@ -34,7 +34,7 @@ function VideoComponent() {
         ref={videoRef}
         src={awesomeVideo}
         playsInline
-        className="mx-32 my-32 rounded-lg overflow-hidden"
+        className="w-[90%] sm:w-[80%] md:mx-16 lg:mx-32 my-8 sm:my-16 md:my-32 rounded-lg overflow-hidden"
       />
     </div>
   );

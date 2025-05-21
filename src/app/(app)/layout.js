@@ -2,6 +2,7 @@
 import Navbar from "@/components/Navbar";
 import { ApolloProvider } from "@apollo/client";
 import client from "@/lib/apolloClient";
+import Footer from "@/components/Footer";
 
 
 export default function RootLayout({ children }) {
@@ -10,6 +11,7 @@ export default function RootLayout({ children }) {
       <ApolloProvider client={client}>
         <Navbar/>
         {children}
+        <Footer/>
       </ApolloProvider>  
         
     </>

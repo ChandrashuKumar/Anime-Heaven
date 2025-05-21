@@ -73,20 +73,20 @@ const SignIn = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/login_backg.webp')" }}>
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-center px-4 sm:px-0" style={{ backgroundImage: "url('/login_backg.webp')" }}>
       <div className="relative">
-        <div className="bg-gray-800 p-10 rounded-lg shadow-xl w-96">
-          <h1 className="text-white text-2xl mb-5">Sign In</h1>
+        <div className="bg-gray-800 p-6 sm:p-10 rounded-lg shadow-xl w-full sm:w-96">
+          <h1 className="text-white text-xl sm:text-2xl mb-4 sm:mb-5">Sign In</h1>
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <div>
               <input
                 type="email"
                 placeholder="Email"
                 {...register("email")}
-                className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
+                className="w-full p-2.5 sm:p-3 mb-3 sm:mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mb-4">{errors.email.message}</p>
+                <p className="text-red-500 text-xs sm:text-sm mb-3 sm:mb-4">{errors.email.message}</p>
               )}
             </div>
             <div>
@@ -94,15 +94,15 @@ const SignIn = () => {
                 type="password"
                 placeholder="Password"
                 {...register("password")}
-                className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
+                className="w-full p-2.5 sm:p-3 mb-3 sm:mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
               />
               {errors.password && (
-                <p className="text-red-500 text-sm">{errors.password.message}</p>
+                <p className="text-red-500 text-xs sm:text-sm">{errors.password.message}</p>
               )}
             </div>
             <button
               type="submit"
-              className="w-full p-3 mt-4 bg-indigo-600 rounded text-white hover:bg-indigo-500"
+              className="w-full p-2.5 sm:p-3 mt-3 sm:mt-4 bg-indigo-600 rounded text-white hover:bg-indigo-500"
             >
               Sign In
             </button>
@@ -115,7 +115,7 @@ const SignIn = () => {
               className="flex items-center space-x-2 focus:outline-none"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 viewBox="0 0 48 48"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -137,11 +137,11 @@ const SignIn = () => {
                 />
                 <path fill="none" d="M0 0h48v48H0z" />
               </svg>
-              <span className="text-gray-300 hover:text-gray-100">Sign In with Google</span>
+              <span className="text-gray-300 hover:text-gray-100 text-xs sm:text-sm">Sign In with Google</span>
             </button>
           </div>
           {(firebaseError) && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-xs sm:text-sm mt-2">
               {getErrorMessage(firebaseError)}
             </p>
           )}
@@ -151,22 +151,31 @@ const SignIn = () => {
         <img
           src="/chibi.png"
           alt="Chibi Character"
-          className="absolute w-20 h-20 combinedAnimation"
+          className="absolute w-14 sm:w-20 h-14 sm:h-20 combinedAnimation"
         />
         <img
           src="/chibi-left.png"
           alt="Chibi Character Facing Left"
-          className="absolute w-20 h-20 combinedAnimationLeft"
+          className="absolute w-14 sm:w-20 h-14 sm:h-20 combinedAnimationLeft"
         />
 
 
         <style jsx>{`
             @keyframes chibiMotion {
-            0% { top: -4.70rem; left: -3.5rem; }
-            25% { top: -4.70rem; left: calc(100% - 1.25rem); }
-            50% { top: calc(100% - 4.75rem); left: calc(100% - 1.25rem); }
-            75% { top: calc(100% - 4.75rem); left: -3.5rem; }
-            100% { top: -4.70rem; left: -3.5rem; }
+            0% { top: -3.5rem; left: -2.5rem; }
+            25% { top: -3.5rem; left: calc(100% - 1rem); }
+            50% { top: calc(100% - 3.5rem); left: calc(100% - 1rem); }
+            75% { top: calc(100% - 3.5rem); left: -2.5rem; }
+            100% { top: -3.5rem; left: -2.5rem; }
+          }
+          @media (min-width: 640px) {
+            @keyframes chibiMotion {
+              0% { top: -4.70rem; left: -3.5rem; }
+              25% { top: -4.70rem; left: calc(100% - 1.25rem); }
+              50% { top: calc(100% - 4.75rem); left: calc(100% - 1.25rem); }
+              75% { top: calc(100% - 4.75rem); left: -3.5rem; }
+              100% { top: -4.70rem; left: -3.5rem; }
+            }
           }
           @keyframes defaultOpacity {
             0%, 24.9%, 75%, 100% { opacity: 1; }

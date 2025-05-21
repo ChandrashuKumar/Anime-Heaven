@@ -85,12 +85,13 @@ function WaifuCarousel() {
   }, []);
 
   return (
-    <div id="result" className="mt-24 mb-[32rem]">
+    <div id="result" className="mt-12 sm:mt-16 md:mt-24 mb-48 sm:mb-64 md:mb-[32rem]">
       <div
         id="image-track"
         ref={trackRef}
         data-mouse-down-at="0"
         data-prev-percentage="0"
+        className="touch-pan-y"
       >
         <img className="image" src="/waifu13.png" draggable="false" alt="Image 2" />
         <img className="image" src="/waifu11.jpg" draggable="false" alt="Image 1" />
