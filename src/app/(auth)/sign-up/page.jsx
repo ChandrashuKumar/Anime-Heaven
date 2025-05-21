@@ -52,7 +52,7 @@ const SignUp = () => {
     try {
       const res = await googleSignIn();
       console.log(res);
-      if (res) router.push("/dashboard");
+      if (res) router.push("/");
     } catch (error) {
       console.log(error);
     }

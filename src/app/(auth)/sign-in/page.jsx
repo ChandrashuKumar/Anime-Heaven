@@ -50,7 +50,7 @@ const SignIn = () => {
       const res = await signInWithEmail(data.email, data.password);
       console.log("User signed in:", res.user);
       if(returnUrl) router.push(returnUrl);
-      else router.push("/dashboard");
+      else router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +62,7 @@ const SignIn = () => {
       console.log(res);
       if (res){
         if(returnUrl) router.push(returnUrl);
-        else router.push("/dashboard");
+        else router.push("/");
       }
 
     } catch (error) {
