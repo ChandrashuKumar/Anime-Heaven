@@ -58,11 +58,13 @@ const Navbar = () => {
       <div className="w-full md:w-auto flex items-center justify-between">
         {/* Left Section: Logo & Website Name */}
         <div className="flex items-center">
-          <img
+          <Link href="/">
+            <img
             src="/logo.jpg"
             alt="Heaven Logo"
             className="w-10 h-10 md:w-12 md:h-12 mr-2 md:mr-3 rounded-full object-cover"
           />
+          </Link>
           <h1 className="text-xl md:text-2xl font-bold text-white">
             Heaven<span className="text-purple-500">.</span>
           </h1>
