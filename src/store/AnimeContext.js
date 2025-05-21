@@ -158,6 +158,7 @@ export const AnimeProvider = ({ children }) => {
     }
   }
 
+
   return (
     <AnimeContext.Provider
       value={{

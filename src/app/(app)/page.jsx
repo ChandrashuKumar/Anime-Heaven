@@ -20,7 +20,6 @@ function Dashboard() {
         autoPlay
         muted
         playsInline
-        loop
         style={{
           position: "fixed",
           top: 0,
