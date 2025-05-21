@@ -305,7 +305,7 @@ export default function MyAnimeListPage() {
                         {/* Right side - Basic Details */}
                         <div className="flex-1 p-2 flex flex-col justify-between">
                           <div>
-                            <Link href={`/anime/${anime.id}`} className="hover:text-purple-400 transition-colors">
+                            <Link href={`/anime_detail/${anime.id}`} className="hover:text-purple-400 transition-colors">
                               <h3 className="text-sm font-semibold line-clamp-1">{anime.title.romaji}</h3>
                             </Link>
                             <div className="flex flex-wrap gap-1 mt-1">
@@ -341,7 +341,7 @@ export default function MyAnimeListPage() {
                                 {isRemoving[anime.id] ? <Loader2 className="h-3 w-3 animate-spin" /> : "Remove"}
                               </button>
                               <Link
-                                href={`/anime/${anime.id}`}
+                                href={`/anime_detail/${anime.id}`}
                                 className="px-1.5 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors"
                               >
                                 Details
@@ -407,7 +407,7 @@ export default function MyAnimeListPage() {
                         {/* Header with title and actions */}
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <Link href={`/anime/${anime.id}`} className="hover:text-purple-400 transition-colors">
+                            <Link href={`/anime_detail/${anime.id}`} className="hover:text-purple-400 transition-colors">
                               <h3 className="text-lg font-semibold">{anime.title.romaji}</h3>
                             </Link>
                             {anime.title.english && anime.title.english !== anime.title.romaji && (
@@ -424,7 +424,7 @@ export default function MyAnimeListPage() {
                               {isRemoving[anime.id] ? <Loader2 className="h-3 w-3 animate-spin" /> : "Remove"}
                             </button>
                             <Link
-                              href={`/anime/${anime.id}`}
+                              href={`/anime_detail/${anime.id}`}
                               className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-sm transition-colors"
                             >
                               Details
