@@ -409,7 +409,7 @@ export default function AnimeDetailsPage() {
 
                   return (
                     <div key={recommendedAnime.id} className="w-32 flex-shrink-0">
-                      <Link href={`/anime/${rec.mediaRecommendation.id}`}>
+                      <Link href={`/anime_detail/${rec.mediaRecommendation.id}`}>
                         <AnimeCard anime={recommendedAnime} />
                       </Link>
                     </div>
@@ -431,7 +431,7 @@ export default function AnimeDetailsPage() {
                 }
 
                 return (
-                  <Link href={`/anime/${rec.mediaRecommendation.id}`} key={rec.mediaRecommendation.id}>
+                  <Link href={`/anime_detail/${rec.mediaRecommendation.id}`} key={rec.mediaRecommendation.id}>
                     <AnimeCard anime={recommendedAnime} />
                   </Link>
                 )

@@ -199,7 +199,7 @@ export default function SearchBar() {
       {/* Add the custom styles */}
       <style jsx global>{customStyles}</style>
       
-      <div className="relative w-full max-w-md" ref={searchRef}>
+      <div className="search-bar relative w-full max-w-md" ref={searchRef}>
         <div className="relative flex items-center">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
